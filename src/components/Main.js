@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import nba from 'nba';
-import { Profile } from './Profile'
-import DataViewContainer from './DataViewContainer'
-import SearchBar from './SearchBar'
+import nba from '../external/nba-client';
+import { Profile } from './Profile';
+import DataViewContainer from './DataViewContainer';
+import SearchBar from './SearchBar';
 import { DEFAULT_PLAYER_INFO } from '../Constants';
 
 class Main extends Component {
@@ -11,14 +11,18 @@ class Main extends Component {
     }
 
     componentDidMount() {
+        window.nba = nba;
         this.loadPlayerInfo(this.state.playerInfo.fullName);
     }
 
     loadPlayerInfo = (playerName) => {
-        nba.stats.playerInfo({ PlayerID: nba.findPlayer(playerName).playerId })
+        nba.stats
+            .playerInfo({ PlayerID: nba.findPlayer(playerName).playerId})
             .then((info) => {
-                const playerInfo = Object.assign(info.commonPlayerInfo[0], info.playerHeadlineStats[0]);
-                this.setState({ playerInfo });
+            console.log(info);
+            const playInfo = Object.assign(info.commonPlayerInfo[0], info.playerHeadlineStats[0]);
+            console.log(playInfo);
+            this.setState({ playerInfo: playInfo });
         });
     }
 
