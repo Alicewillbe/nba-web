@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   client:
+    image: alicewillbe/nba_web_client:latest
     stdin_open: true
     build:
       context: .

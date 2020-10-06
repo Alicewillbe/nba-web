@@ -5,12 +5,12 @@ services:
   - docker
 
 before_install:
-  - docker build -t alicewillbe/nba-web -f Dockerfile.dev .
+  - docker build -t alicewillbe/nba_web_client -f Dockerfile.dev .
 
 scripts:
   # dummy CI
 
 after_success:
-  - docker build -t alicewillbe/nba-web .
+  - docker build -t alicewillbe/nba_web_client .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push alicewillbe/nba-web
+  - docker push alicewillbe/nba_web_client
